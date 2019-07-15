@@ -33,8 +33,10 @@ XXXX Jps
 ```
 hdfs dfs -mkdir /user/
 hdfs dfs -mkdir /user/student
-hdfs dfs -mkdir /user/student/shakespeare
-
+hdfs dfs -mkdir /user/student/airline
+hdfs dfs -mkdir /user/student/airline/output
+hdfs dfs -mkdir /user/student/airline/output/1987
+hdfs dfs -mkdir /user/student/airline/output/2008
 ```
 
 Trouble with the run.
@@ -78,8 +80,13 @@ mvn clean package
 
 ### Prepare Input & Run:
 ```
-hdfs dfs -copyFromLocal src/main/resources/tragedy/* /user/student/shakespeare
-hadoop jar target/cisc-525-mapreduce-jar-with-dependencies.jar com.drkiettran.mapreduce.WordCount /user/student/shakespeare /user/student/shakespeare/output/shakespeare/output
+hdfs dfs -copyFromLocal ~/dev/airline/1987.csv /user/student/airline
+hdfs dfs -copyFromLocal ~/dev/airline/2008.csv /user/student/airline
+
+hadoop jar target/cisc-525-mapreduce-jar-with-dependencies.jar
+com.drkiettran.mapreduce.FlightsOriginatedFromAirpoirt
+/user/student/airline/1987.csv
+/user/student/airline/output/1987/flights_by_originate
 ```
 
 ### Clear output:
@@ -90,7 +97,8 @@ hadoop dfs -rmdir output
 
 ### Result:
 ```
-hdfs dfs -cat /user/student/shakespeare/output/part-r-00000 
+hdfs dfs -cat /user/student/airline/output/1987/flights_by_originate/part-r-00000 
+hdfs dfs -cat /user/student/airline/output/2008/flights_by_originate/part-r-00000 
 
 ```
 
