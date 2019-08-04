@@ -33,10 +33,10 @@ public class MaxMinDepDelayAndArriveDelayFromFlight {
         public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
             if (key.get() > 0) {
                 String[] lines = new CSVParser().parseLine(value.toString());
-                t1.set(lines[10]); // the 10th index is that for the plane tail number of airline
+                t1.set(lines[10] + " departure delay"); // the 10th index is that for the plane tail number of airline
                 //handle NA parse error
                 context.write(t1, new IntWritable(IntergerConverter.parseWithDefault(lines[15], 0))); // the 15th index is that for the departure delay of airline
-                                                                        // departure delay
+                t1.set(lines[10] + " arrive delay");                                                       // departure delay
                 context.write(t1, new IntWritable(IntergerConverter.parseWithDefault(lines[14], 0))); // the 14th index is that for the arrive delay of airline
                                                                         // arrive delay
             }
